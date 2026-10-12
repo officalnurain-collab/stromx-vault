@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>STROMX Apps Store - Premium Apps Store</title>
+  <meta name="description" content="Download unlocked premium APKs, 100% free with verified fast downloads, mirror servers, and reviews.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.4), 0 0 30px rgba(139, 92, 246, 0.2); }
+      50% { box-shadow: 0 0 25px rgba(0, 229, 255, 0.7), 0 0 45px rgba(139, 92, 246, 0.4); }
+    }
+    .glow-ring { animation: pulse-glow 3s infinite ease-in-out; }
+  </style>
+</head>
+<body class="bg-[#070318] text-white min-h-screen relative overflow-x-hidden">
+
+  <!-- Particle Canvas -->
+  <canvas id="starCanvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full"></canvas>
+
+  <!-- APP CONTAINER -->
+  <div id="appRoot" class="relative z-10 max-w-md mx-auto min-h-screen flex flex-col bg-slate-950/40 backdrop-blur-sm border-x border-white/5 shadow-2xl">
+    
+    <!-- 1. SPLASH SCREEN (MATCHING SCREENSHOT 1) -->
+    <div id="splashView" class="fixed inset-0 z-50 flex flex-col justify-between items-center bg-gradient-to-b from-[#0b0424] via-[#050212] to-[#020008] px-4 py-8">
+      <div class="w-full flex justify-end">
+        <button onclick="hideSplash()" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 text-cyan-300 border border-white/10 hover:bg-white/20">
+          Skip →
+        </button>
+      </div>
+
+      <div class="w-full max-w-xs flex flex-col items-center text-center my-auto">
+        <!-- Rainbow Glowing Ring Logo -->
+        <div class="w-28 h-28 rounded-full p-[3px] bg-gradient-to-tr from-cyan-400 via-fuchsia-500 to-amber-300 glow-ring shadow-2xl mb-4 flex items-center justify-center">
+          <div class="w-full h-full rounded-full bg-slate-950 flex flex-col items-center justify-center">
+            <span class="text-[7px] font-black text-emerald-400 uppercase tracking-widest">FREE • 100% • FREE</span>
+            <div class="grid grid-cols-3 gap-1 my-1">
+              <span class="w-3.5 h-3.5 rounded bg-red-600 flex items-center justify-center text-[7px]">▶</span>
+              <span class="w-3.5 h-3.5 rounded bg-blue-500 flex items-center justify-center text-[7px]">⚡</span>
+              <span class="w-3.5 h-3.5 rounded bg-purple-600 flex items-center justify-center text-[7px]">✂</span>
+              <span class="w-3.5 h-3.5 rounded bg-emerald-600 flex items-center justify-center text-[7px]">✦</span>
+              <span class="w-3.5 h-3.5 rounded bg-pink-500 flex items-center justify-center text-[7px]">★</span>
+              <span class="w-3.5 h-3.5 rounded bg-amber-500 flex items-center justify-center text-[7px]">K</span>
+            </div>
+            <span class="text-[8px] font-bold text-amber-300">প্রিমিয়াম অ্যাপস</span>
+          </div>
+        </div>
+
+        <h1 class="text-3xl font-extrabold tracking-tight mb-2">
+          <span>Premium </span><span class="text-[#00E5FF]">Apps Store</span>
+        </h1>
+
+        <div class="inline-block px-3.5 py-0.5 rounded-full bg-amber-300 text-amber-950 font-black text-xs mb-3 shadow">
+          ✦ 100% FREE ✦
+        </div>
+
+        <p class="text-white font-bold text-xs">CapCut · Alight · VN · InShot · KineMaster</p>
+        <p class="text-indigo-200/80 text-[11px] mb-4">All Premium Apps — Unlocked & 100% Free</p>
+
+        <div class="text-indigo-300 text-[11px] font-bold tracking-wider mb-2">★ Featured Premium Apps ★</div>
+
+        <!-- 8 App Icons -->
+        <div class="grid grid-cols-4 gap-2.5 mb-5 w-full">
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-zinc-900 border border-white/20 flex items-center justify-center text-sm font-bold">✂
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">CapCut</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-purple-950 border border-white/20 flex items-center justify-center text-sm font-bold">◎
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">Alight</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-red-900 border border-white/20 flex items-center justify-center text-sm font-bold">📷
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">InShot</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-orange-900 border border-white/20 flex items-center justify-center text-sm font-bold">K
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">KineMaster</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-cyan-900 border border-white/20 flex items-center justify-center text-sm font-bold">C
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">Canva</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-pink-900 border border-white/20 flex items-center justify-center text-sm font-bold">P
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">PicsArt</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-blue-950 border border-white/20 flex items-center justify-center text-sm font-bold">Lr
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">Lightroom</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="relative w-11 h-11 rounded-2xl bg-emerald-950 border border-white/20 flex items-center justify-center text-sm font-bold">🍃
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <span class="text-[9px] text-slate-300 mt-1">Snapseed</span>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="w-full space-y-1.5">
+          <div class="flex justify-between text-xs font-semibold">
+            <span class="text-indigo-200">Unlocking Premium</span>
+            <span id="splashProgressText" class="text-[#00E5FF] font-bold">82%</span>
+          </div>
+          <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/10">
+            <div id="splashProgressBar" class="h-full bg-gradient-to-r from-purple-500 to-[#00F5D4] transition-all duration-300" style="width: 82%;"></div>
+          </div>
+          <p class="text-[11px] text-indigo-300/80">Almost ready...</p>
+        </div>
+      </div>
+
+      <div class="text-[10px] text-indigo-300/60">
+        Secure · Ad-free · No personal data collected
+      </div>
+    </div>
+
+    <!-- 2. HOME SCREEN (MATCHING SCREENSHOT 2 & 3) -->
+    <div id="homeView" class="flex-1 flex flex-col pb-20">
+      <!-- Header -->
+      <header class="sticky top-0 z-30 backdrop-blur-xl bg-slate-950/80 border-b border-white/10 px-4 py-3 flex items-center justify-between">
+        <!-- Logo -->
+        <div class="w-9 h-9 rounded-full p-[2px] bg-gradient-to-tr from-cyan-400 via-fuchsia-500 to-amber-300">
+          <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-[10px] font-black text-amber-300">
+            STX
+          </div>
+        </div>
+
+        <h1 class="text-base sm:text-lg font-black text-[#00D2FF] tracking-tight">
+          Premium Apps Store
+        </h1>
+
+        <button onclick="toggleSearch()" class="w-8 h-8 rounded-full bg-[#0084FF] text-white flex items-center justify-center shadow-lg cursor-pointer">
+          🔍
+        </button>
+      </header>
+
+      <!-- Search Input Container -->
+      <div id="searchContainer" class="hidden px-4 pt-2">
+        <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search apps, AI tools, 5G..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-cyan-500/30 text-xs text-white placeholder-slate-400 focus:outline-none">
+      </div>
+
+      <!-- Categories Pills -->
+      <div class="px-4 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs font-semibold">
+        <button onclick="filterCategory('All')" class="cat-pill active px-3 py-1 rounded-full bg-cyan-500 text-black font-bold whitespace-nowrap">All Apps</button>
+        <button onclick="filterCategory('5G')" class="cat-pill px-3 py-1 rounded-full bg-white/5 text-slate-300 hover:bg-white/10 whitespace-nowrap">5G</button>
+        <button onclick="filterCategory('Ai')" class="cat-pill px-3 py-1 rounded-full bg-white/5 text-slate-300 hover:bg-white/10 whitespace-nowrap">Ai</button>
+        <button onclick="filterCategory('Ai Video')" class="cat-pill px-3 py-1 rounded-full bg-white/5 text-slate-300 hover:bg-white/10 whitespace-nowrap">Ai Video</button>
+        <button onclick="filterCategory('Anime & Cartoon')" class="cat-pill px-3 py-1 rounded-full bg-white/5 text-slate-300 hover:bg-white/10 whitespace-nowrap">Anime & Cartoon</button>
+      </div>
+
+      <!-- HOT ITEMS CAROUSEL -->
+      <section class="mt-2 mb-4 px-4">
+        <div class="flex items-center gap-1.5 mb-2.5">
+          <span class="text-base">🔥</span>
+          <h2 class="text-base font-black text-white">Hot Items</h2>
+        </div>
+        <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+          <!-- MovieBox -->
+          <div onclick="openAppDetails('moviebox-premium')" class="flex-shrink-0 w-36 cursor-pointer group">
+            <div class="aspect-square w-full rounded-2xl bg-gradient-to-br from-emerald-100 to-sky-100 p-2.5 flex flex-col justify-between items-center text-slate-900 shadow">
+              <div class="w-full flex justify-end">
+                <span class="px-1.5 py-0.5 rounded-full bg-white text-[9px] font-black border border-slate-200">🤖 18</span>
+              </div>
+              <div class="w-14 h-14 rounded-xl bg-white shadow flex flex-col items-center justify-center">
+                <span class="text-2xl text-cyan-500 font-black">▶</span>
+                <span class="text-[7px] font-black uppercase text-slate-800">MovieBox</span>
+              </div>
+              <span class="text-[8px] font-bold text-emerald-800 bg-emerald-200 px-2 py-0.5 rounded-full">UNLOCKED</span>
+            </div>
+            <p class="font-extrabold text-white text-xs mt-1.5 text-center truncate">MovieBox Premium</p>
+          </div>
+
+          <!-- CapCut Ultra -->
+          <div onclick="openAppDetails('capcut-ultra-2027')" class="flex-shrink-0 w-36 cursor-pointer group">
+            <div class="aspect-square w-full rounded-2xl bg-gradient-to-br from-purple-100 to-indigo-100 p-2.5 flex flex-col justify-between items-center text-slate-900 shadow">
+              <div class="w-full flex justify-end">
+                <span class="px-1.5 py-0.5 rounded-full bg-white text-[9px] font-black border border-slate-200">🤖 ULTRA</span>
+              </div>
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-950 to-purple-900 shadow flex flex-col items-center justify-center text-white">
+                <span class="text-xl font-black text-purple-300">Z</span>
+                <span class="text-[7px] text-amber-300 font-bold">2027</span>
+              </div>
+              <span class="text-[8px] font-bold text-purple-800 bg-purple-200 px-2 py-0.5 rounded-full">VIP 4K</span>
+            </div>
+            <p class="font-extrabold text-white text-xs mt-1.5 text-center truncate">CapCut Ultra</p>
+          </div>
+
+          <!-- Jio Hotstar -->
+          <div onclick="openAppDetails('jio-hotstar-vip')" class="flex-shrink-0 w-36 cursor-pointer group">
+            <div class="aspect-square w-full rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 p-2.5 flex flex-col justify-between items-center text-slate-900 shadow">
+              <div class="w-full flex justify-end">
+                <span class="px-1.5 py-0.5 rounded-full bg-white text-[9px] font-black border border-slate-200">🤖 4K</span>
+              </div>
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-700 to-purple-800 shadow flex items-center justify-center text-white text-2xl">
+                ✸
+              </div>
+              <span class="text-[8px] font-bold text-blue-800 bg-blue-200 px-2 py-0.5 rounded-full">SPORTS LIVE</span>
+            </div>
+            <p class="font-extrabold text-white text-xs mt-1.5 text-center truncate">Jio hotstar</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPS LIST CONTAINER -->
+      <div id="appsListContainer" class="px-4 space-y-4"></div>
+    </div>
+
+    <!-- 3. DETAILS SCREEN (MATCHING SCREENSHOTS 4 & 5) -->
+    <div id="detailsView" class="hidden min-h-screen bg-slate-100 text-slate-900 pb-20">
+      <!-- Nav -->
+      <div class="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+        <button onclick="closeDetails()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold">←</button>
+        <h2 class="text-base font-black">Details</h2>
+        <div class="w-8"></div>
+      </div>
+
+      <div class="p-4 space-y-4 max-w-md mx-auto">
+        <!-- App Header Card -->
+        <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 flex items-center gap-3">
+          <div id="detailIcon" class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shadow-md font-bold text-white bg-slate-900 flex-shrink-0">
+          </div>
+          <div>
+            <h3 id="detailName" class="text-base font-black"></h3>
+            <p id="detailVersionSize" class="text-xs text-slate-500 font-semibold"></p>
+            <div class="text-xs text-slate-500 font-medium mt-1 flex items-center gap-2">
+              <span class="text-amber-500 font-bold">★ 4.9</span>
+              <span>•</span>
+              <span id="detailViews" class="text-cyan-600 font-bold">👁 43.2K Views</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Buttons -->
+        <div class="space-y-2">
+          <button onclick="startDownload(false)" class="w-full py-3.5 rounded-2xl bg-[#00C853] hover:bg-[#00b048] text-white font-black text-sm shadow-md flex items-center justify-center gap-2">
+            <span>📥 Download</span>
+          </button>
+          <button onclick="startDownload(true)" class="w-full py-3.5 rounded-2xl bg-[#2979FF] hover:bg-[#1f6beb] text-white font-black text-sm shadow-md flex items-center justify-center gap-2">
+            <span>📥 Download (Mirror)</span>
+          </button>
+          <button onclick="showHowToDownload()" class="w-full py-3 rounded-2xl bg-[#EEF2F6] text-slate-800 font-bold text-xs flex items-center justify-center gap-2">
+            <span>▶ How to Download</span>
+          </button>
+        </div>
+
+        <!-- Download Progress Toast -->
+        <div id="downloadToast" class="hidden bg-emerald-900 text-white p-3 rounded-2xl text-xs font-bold space-y-1">
+          <div class="flex justify-between">
+            <span id="downloadStatusText">Downloading APK...</span>
+            <span id="downloadPercent">0%</span>
+          </div>
+          <div class="w-full h-1.5 bg-emerald-950 rounded-full overflow-hidden">
+            <div id="downloadBar" class="h-full bg-cyan-300" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- About this item -->
+        <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
+          <h4 class="text-sm font-extrabold text-slate-900">About this item</h4>
+          <div id="detailNote" class="p-2.5 rounded-xl bg-purple-50 text-purple-950 text-xs font-bold border border-purple-100 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px]">★</span>
+            <span id="detailNoteText">3 OCT 2026 new version install old version delete</span>
+          </div>
+          <div class="space-y-2 text-xs font-bold text-slate-800 pt-1">
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center">🔒</span> Premium Features Unlocked</div>
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">🔕</span> AdsFree Experience</div>
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">📲</span> Automatic Login</div>
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center">🔒</span> All Features Unlocked</div>
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">🛡</span> All Bugs / Crashes Fixed</div>
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">⚙</span> All Debug Info Removed</div>
+            <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">📱</span> All Devices Supported</div>
+          </div>
+        </div>
+
+        <!-- Leave a Review -->
+        <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200 space-y-3">
+          <h4 class="text-sm font-extrabold text-slate-900 text-center">Leave a Review</h4>
+          <div class="flex justify-center gap-2 text-2xl text-amber-400">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <input type="text" id="reviewName" placeholder="Your Name" class="w-full px-3 py-2.5 rounded-xl bg-slate-100 text-xs focus:outline-none">
+          <textarea id="reviewComment" rows="2" placeholder="Write your review..." class="w-full px-3 py-2.5 rounded-xl bg-slate-100 text-xs focus:outline-none"></textarea>
+          <button onclick="submitReview()" class="w-full py-3 rounded-xl bg-[#00C853] text-white font-bold text-xs">Submit Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOATING GEAR BUTTON (BOTTOM RIGHT) -->
+    <button onclick="openSettings()" class="fixed bottom-6 right-5 z-40 w-12 h-12 rounded-full bg-[#00C853] hover:bg-[#00b048] text-white flex items-center justify-center shadow-2xl border-2 border-white/20 text-xl font-bold cursor-pointer">
+      ⚙
+    </button>
+  </div>
+
+  <!-- HOW TO DOWNLOAD MODAL -->
+  <div id="howToModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
+    <div class="bg-white text-slate-900 rounded-3xl p-6 max-w-sm w-full space-y-3">
+      <div class="flex justify-between items-center">
+        <h3 class="font-extrabold text-base">How to Install APK</h3>
+        <button onclick="closeHowToModal()" class="text-slate-400 font-bold text-lg">✕</button>
+      </div>
+      <p class="text-xs text-slate-600">1. Click Download APK and tap "Download anyway".</p>
+      <p class="text-xs text-slate-600">2. Enable "Install Unknown Apps" in Android Settings.</p>
+      <p class="text-xs text-slate-600">3. Tap the downloaded APK file and click Install!</p>
+      <button onclick="closeHowToModal()" class="w-full py-2.5 rounded-xl bg-[#00C853] text-white font-bold text-xs mt-3">Got it!</button>
+    </div>
+  </div>
+
+  <script>
+    // STORE DATA
+    const APPS = [
+      { id: '5g-4g-force-lte', name: '5G 4G Force LTE Mode', category: '5G', version: 'v1.6.0', size: '11.50M', views: 12500, note: 'Lock 5G NR Only on any device' },
+      { id: 'perplexity-max-plus', name: 'Perplexity MAX+', category: 'Ai', version: 'v2.86.0', size: '119.04MB', views: 52100, note: 'Pro unlimited Claude & GPT-4o queries' },
+      { id: 'claude-ai-pro', name: 'Claude', category: 'Ai', version: 'v1.260309', size: '18.37MB', views: 38400, note: 'Claude 3.5 Sonnet unlocked' },
+      { id: 'pixelcut-pro', name: 'Pixelcut', category: 'Ai', version: 'v0.9.30', size: '42.15MB', views: 19800, note: 'Magic eraser & background AI' },
+      { id: 'videogpt-studio', name: 'VideoGPT', category: 'Ai Video', version: 'v3.1', size: '128.17MB', views: 29700, note: 'Text to video 60fps generation' },
+      { id: 'ai-video-mix', name: 'AI Video Mix', category: 'Ai Video', version: 'v1.2.7', size: '76.54MB', views: 24300, note: 'Face swap & slow motion AI' },
+      { id: 'ai-video-generator', name: 'AI Video Generator', category: 'Ai Video', version: 'v1.7.7', size: '92.10MB', views: 18600, note: '3D AI camera motion effects' },
+      { id: 'capcut-ultra-2027', name: 'CapCut Ultra', category: 'Ai Video', version: '23.0.0', size: '333.26MB', views: 43200, note: '3 OCT 2026 new version install old version delete' },
+      { id: 'moviebox-premium', name: 'MovieBox Premium', category: 'Premium Apps', version: '18.4.2', size: '48.80MB', views: 89400, note: 'All VIP 4K Movies Unlocked' },
+      { id: 'jio-hotstar-vip', name: 'Jio hotstar', category: 'Premium Apps', version: '26.04.14.2', size: '64.63MB', views: 4800, note: 'Live sports & Disney unlocked' }
+    ];
+
+    let currentApp = APPS[7];
+
+    function renderApps(list) {
+      const container = document.getElementById('appsListContainer');
+      container.innerHTML = '';
+
+      const categories = ['5G', 'Ai', 'Ai Video'];
+      categories.forEach(cat => {
+        const catApps = list.filter(a => a.category === cat);
+        if (catApps.length === 0) return;
+
+        const sec = document.createElement('div');
+        sec.className = 'space-y-2';
+        sec.innerHTML = `<h3 class="text-base font-extrabold text-white">${cat}</h3>`;
+
+        const row = document.createElement('div');
+        row.className = 'flex gap-3 overflow-x-auto no-scrollbar pb-1';
+
+        catApps.forEach(app => {
+          const card = document.createElement('div');
+          card.className = 'flex-shrink-0 w-36 rounded-2xl bg-[#E8F7F3] p-3 flex flex-col items-center text-center cursor-pointer shadow text-slate-900';
+          card.onclick = () => openAppDetails(app.id);
+          card.innerHTML = `
+            <div class="relative w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold mb-2">
+              ${app.name.substring(0,2)}
+              <span class="absolute -top-1 -right-1 bg-[#00C853] text-black text-[7px] font-black px-1 rounded-full">FREE</span>
+            </div>
+            <h4 class="font-extrabold text-xs line-clamp-2 h-7 leading-tight">${app.name}</h4>
+            <div class="w-full flex justify-between text-[9px] text-slate-500 font-bold border-t border-slate-300 pt-1 mt-1">
+              <span>${app.version}</span>
+              <span>${app.size}</span>
+            </div>
+          `;
+          row.appendChild(card);
+        });
+
+        sec.appendChild(row);
+        container.appendChild(sec);
+      });
+    }
+
+    function openAppDetails(appId) {
+      currentApp = APPS.find(a => a.id === appId) || APPS[0];
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('detailsView').classList.remove('hidden');
+
+      document.getElementById('detailName').innerText = currentApp.name;
+      document.getElementById('detailVersionSize').innerText = `Version: ${currentApp.version} | Size: ${currentApp.size}`;
+      document.getElementById('detailViews').innerText = `👁 ${(currentApp.views / 1000).toFixed(1)}K Views`;
+      document.getElementById('detailNoteText').innerText = currentApp.note;
+      document.getElementById('detailIcon').innerText = currentApp.name.substring(0,2);
+      window.scrollTo(0, 0);
+    }
+
+    function closeDetails() {
+      document.getElementById('detailsView').classList.add('hidden');
+      document.getElementById('homeView').classList.remove('hidden');
+    }
+
+    function startDownload(isMirror) {
+      const toast = document.getElementById('downloadToast');
+      const bar = document.getElementById('downloadBar');
+      const pct = document.getElementById('downloadPercent');
+      toast.classList.remove('hidden');
+      let p = 0;
+      const interval = setInterval(() => {
+        p += 20;
+        bar.style.width = p + '%';
+        pct.innerText = p + '%';
+        if (p >= 100) {
+          clearInterval(interval);
+          alert('✓ Downloading ' + currentApp.name.replace(/\s+/g, '_') + '.apk');
+          setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+      }, 200);
+    }
+
+    function hideSplash() {
+      document.getElementById('splashView').classList.add('hidden');
+    }
+
+    function toggleSearch() {
+      const el = document.getElementById('searchContainer');
+      el.classList.toggle('hidden');
+      if (!el.classList.contains('hidden')) {
+        document.getElementById('searchInput').focus();
+      }
+    }
+
+    function handleSearch(q) {
+      const filtered = APPS.filter(a => a.name.toLowerCase().includes(q.toLowerCase()) || a.category.toLowerCase().includes(q.toLowerCase()));
+      renderApps(filtered);
+    }
+
+    function filterCategory(cat) {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('bg-cyan-500', 'text-black'));
+      if (cat === 'All') renderApps(APPS);
+      else renderApps(APPS.filter(a => a.category === cat));
+    }
+
+    function showHowToDownload() {
+      document.getElementById('howToModal').classList.remove('hidden');
+    }
+
+    function closeHowToModal() {
+      document.getElementById('howToModal').classList.add('hidden');
+    }
+
+    function submitReview() {
+      const name = document.getElementById('reviewName').value;
+      if (!name) return alert('Please enter your name');
+      alert('✓ Thank you ' + name + '! Your review has been submitted.');
+      document.getElementById('reviewName').value = '';
+      document.getElementById('reviewComment').value = '';
+    }
+
+    function openSettings() {
+      alert('STROMX Apps Store Settings\n\n• Package: com.stromx.appsstore\n• Engine: Flutter 3.24 & HTML5\n• Admin: password is "stromx2026"');
+    }
+
+    // Auto-progress splash
+    setTimeout(hideSplash, 3500);
+
+    // Initial render
+    renderApps(APPS);
+
+    // Particle canvas background
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const stars = Array.from({ length: 60 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      a: Math.random()
+    }));
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${s.a})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        s.y += 0.2;
+        if (s.y > canvas.height) s.y = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+  </script>
+</body>
+</html>
